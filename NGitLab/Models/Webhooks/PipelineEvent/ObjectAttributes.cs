@@ -16,10 +16,10 @@ public class ObjectAttributes
     public bool Tag { get; set; }
 
     [JsonPropertyName("sha")]
-    public string? Sha { get; set; }
+    public Sha1? Sha { get; set; }
 
     [JsonPropertyName("before_sha")]
-    public string? BeforeSha { get; set; }
+    public Sha1? BeforeSha { get; set; }
 
     [JsonPropertyName("source")]
     public string? Source { get; set; }

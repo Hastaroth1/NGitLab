@@ -1,9 +1,13 @@
 ﻿#nullable enable
 
 using System.Text.Json.Serialization;
+using NGitLab.Impl.Json;
 
 namespace NGitLab.Models.Webhooks.TagEvent;
 
+/// <summary>
+/// The event body when Gitlab sends a Tag event in a webhook POST
+/// </summary>
 public class TagEventBody
 {
     [JsonPropertyName("object_kind")]
@@ -13,19 +17,16 @@ public class TagEventBody
     public string? EventName { get; set; }
 
     [JsonPropertyName("before")]
-    public string? Before { get; set; }
+    public Sha1? Before { get; set; }
 
     [JsonPropertyName("after")]
-    public string? After { get; set; }
+    public Sha1? After { get; set; }
 
     [JsonPropertyName("ref")]
     public string? Ref { get; set; }
 
     [JsonPropertyName("checkout_sha")]
-    public string? CheckoutSha { get; set; }
-
-    [JsonPropertyName("message")]
-    public object? Message { get; set; }
+    public Sha1? CheckoutSha { get; set; }
 
     [JsonPropertyName("user_id")]
     public int UserId { get; set; }
@@ -53,4 +54,15 @@ public class TagEventBody
 
     [JsonPropertyName("total_commits_count")]
     public int TotalCommitsCount { get; set; }
+
+    /// <summary>
+    /// Convert the string to a <see cref="TagEventBody"/>
+    /// </summary>
+    /// <param name="json">The string to deserialize</param>
+    /// <returns></returns>
+    public static TagEventBody Deserialize(string json)
+    {
+        // Since the Sha1Converter is internal, this is the only way to be able to deserialize this object
+        return Serializer.Deserialize<TagEventBody>(json);
+    }
 }
