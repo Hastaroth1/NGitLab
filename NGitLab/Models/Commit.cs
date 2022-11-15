@@ -1,17 +1,10 @@
-﻿using System;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace NGitLab.Models
 {
-    public class Commit
+    public class Commit : CommitBase
     {
         public const string Url = "/commits";
-
-        [JsonPropertyName("id")]
-        public Sha1 Id;
-
-        [JsonPropertyName("title")]
-        public string Title;
 
         [JsonPropertyName("short_id")]
         public string ShortId;
@@ -36,9 +29,6 @@ namespace NGitLab.Models
 
         [JsonPropertyName("created_at")]
         public DateTime CreatedAt;
-
-        [JsonPropertyName("message")]
-        public string Message;
 
         [JsonPropertyName("parent_ids")]
         public Sha1[] Parents;
